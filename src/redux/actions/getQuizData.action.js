@@ -15,6 +15,7 @@ export const getQuizData = () => async (dispatch) => {
         })
         const { data } = await baseUrl.get('api.php?amount=10&type=multiple')
 
+
         let newData = data.results.map(items => {
             return {
                 ...items,

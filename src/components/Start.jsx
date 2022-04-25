@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useDispatch } from "react-redux";
+import { getQuizData } from "../redux/actions/getQuizData.action";
 import { sendName } from "../redux/actions/name.action";
-
 import { rendering } from "../redux/actions/rendering.acion";
 
 
@@ -27,6 +27,11 @@ const Start = () => {
         dispatch(sendName(name))
         dispatch(rendering('quiz'))
     }
+
+    //get quiz data
+    useEffect(() => {
+        dispatch(getQuizData())
+    }, [])
 
     return (
         <>
