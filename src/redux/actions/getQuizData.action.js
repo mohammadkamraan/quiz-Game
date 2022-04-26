@@ -27,10 +27,11 @@ export const getQuizData = () => async (dispatch) => {
             loading: false,
             data: newData
         })
-    } catch (err) {
+    } catch (error) {
         dispatch({
             type: GET_QUIZ_DATA_FAILD,
-            loading: false
+            loading: false,
+            hasError: true
         })
     }
 }

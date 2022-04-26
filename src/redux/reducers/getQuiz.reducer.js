@@ -7,7 +7,8 @@ import {
 
 const initialState = {
     loading: null,
-    data: []
+    data: [],
+    hasError: null
 }
 
 export const getQuizData = (state = initialState, action) => {
@@ -26,7 +27,8 @@ export const getQuizData = (state = initialState, action) => {
         case GET_QUIZ_DATA_FAILD:
             return {
                 ...state,
-                loading: action.loading
+                loading: action.loading,
+                hasError: action.hasError
             }
         default:
             return state
