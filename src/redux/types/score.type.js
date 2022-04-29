@@ -1,0 +1,1 @@
+export const SEND_SCORE = 'SEND_SCORE';

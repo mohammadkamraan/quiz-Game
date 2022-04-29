@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
 import { rendering } from "../redux/actions/rendering.acion";
+import { sendScore } from "../redux/actions/score.action";
 
 const QuestionHandler = () => {
 
     const [qusetionIndex, setQuestionIndex] = useState(0)
     const [score, setScore] = useState(0)
     const [clicked, setClicked] = useState(false)
+    const [times, setTimes] = useState(0)
 
     const data = useSelector(state => state.getQuizData)
 
@@ -17,26 +19,58 @@ const QuestionHandler = () => {
     const correctAnswer = data.data?.[qusetionIndex]?.correct_answer;
     const answers = data.data?.[qusetionIndex]?.answers;
 
-    const isCorrect = (choice) => {
-        return choice === correctAnswer
+    const answerIsCorrect = (choice) => choice === correctAnswer
+
+    const gameIsOver = () => qusetionIndex === 9
+
+    const timeLimitation = () => {
+        let time = 60
+        let test = setInterval(() => {
+            let timer = time - 1
+            time = timer
+            setTimes(timer)
+            clearInterval(10000)
+        }, 1000);
     }
+    console.log(times)
+    useEffect(() => {
+    }, [])
 
 
     const userChoiceAnAnswer = (choice) => {
         setClicked(true)
         setTimeout(() => {
-            if (isCorrect(choice) && qusetionIndex < 9) {
-                setQuestionIndex(previousQuestionIndex => previousQuestionIndex + 1)
-                setScore(previousScore => previousScore + 1)
-            } else if (!isCorrect(choice) && qusetionIndex < 9) {
-                setQuestionIndex(previousQuestionIndex => previousQuestionIndex + 1)
-            } else if (isCorrect(choice) && qusetionIndex === 9) {
-                dispatch(rendering('start'))
+            if (answerIsCorrect(choice)) {
+                if (!gameIsOver()) {
+                    setQuestionIndex(previousQuestionIndex => ++previousQuestionIndex)
+                    setScore(previousScore => ++previousScore)
+                } else {
+                    dispatch(rendering('results'))
+                    dispatch(sendScore(score + 1))
+                }
             } else {
-                dispatch(rendering('start'))
+                if (!gameIsOver()) {
+                    setQuestionIndex(previousQuestionIndex => ++previousQuestionIndex)
+                } else {
+                    dispatch(sendScore(score))
+                    dispatch(rendering('results'))
+                }
             }
             setClicked(false)
-        }, 2000);
+        }, 100);
+        // setTimeout(() => {
+        //     if (answerIsCorrect(choice) && !gameIsOver()) {
+        //         setQuestionIndex(previousQuestionIndex => ++previousQuestionIndex)
+        //         setScore(previousScore => previousScore + 1)
+        //     } else if (!answerIsCorrect(choice) && !gameIsOver()) {
+        //         setQuestionIndex(previousQuestionIndex => ++previousQuestionIndex)
+        //     } else if (answerIsCorrect(choice) && qusetionIndex === 9) {
+        //         dispatch(rendering('start'))
+        //     } else {
+        //         dispatch(rendering('start'))
+        //     }
+        //     setClicked(false)
+        // }, 2000);
     }
 
     const renderAnswers = () => {

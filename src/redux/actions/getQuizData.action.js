@@ -7,6 +7,7 @@ import {
 import { baseUrl } from '../../api/baseUrl';
 import { shuffle } from '../../shuffle';
 
+
 export const getQuizData = () => async (dispatch) => {
     try {
         dispatch({

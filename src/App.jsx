@@ -5,12 +5,15 @@ import { useSelector } from 'react-redux';
 //import components
 import Start from "./components/Start";
 import Quiz from "./components/Quiz";
+import Results from "./components/Results";
 
 
 
 const App = () => {
 
   const component = useSelector(state => state.rendering)
+
+  console.log(component)
 
 
   const conditionalRendering = () => {
@@ -19,6 +22,8 @@ const App = () => {
         return <Start />
       case 'quiz':
         return <Quiz />
+      case 'results':
+        return <Results />
       default:
         console.log('there is no component')
     }

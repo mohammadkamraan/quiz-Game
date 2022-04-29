@@ -4,11 +4,13 @@ import { combineReducers } from 'redux';
 import { rendering } from './rendering.reducer';
 import { sendName } from './name.reducer';
 import { getQuizData } from './getQuiz.reducer';
+import { score } from './score.reducer';
 
 const rootReducer = combineReducers({
     rendering,
     sendName,
-    getQuizData
+    getQuizData,
+    score
 })
 
 export default rootReducer;
