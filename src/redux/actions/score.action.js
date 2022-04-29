@@ -1,6 +1,6 @@
-import { SEND_SCORE } from '../types/score.type';
+import { USER_SCORE } from '../types/score.type';
 
-export const sendScore = score => ({
-    type: SEND_SCORE,
+export const setScore = score => ({
+    type: USER_SCORE,
     score
 })

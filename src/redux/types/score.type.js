@@ -1,1 +1,1 @@
-export const SEND_SCORE = 'SEND_SCORE';
+export const USER_SCORE = 'SEND_SCORE';
