@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {setAnswerIsCorrect} from "../redux/actions/getQuizData.action";
 
-const initialTime = 7;
+const initialTime = 60;
 const Question = (question) => {
     const dispatch = useDispatch();
 
