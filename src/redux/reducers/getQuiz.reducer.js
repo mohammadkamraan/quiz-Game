@@ -7,7 +7,7 @@ import {
 
 const initialState = {
     loading: null,
-    data: [],
+    questions: [],
     hasError: null
 }
 
@@ -22,7 +22,7 @@ export const getQuizData = (state = initialState, action) => {
             return {
                 ...state,
                 loading: action.loading,
-                data: action.data
+                questions: action.questions
             }
         case GET_QUIZ_DATA_FAILD:
             return {
@@ -33,4 +33,24 @@ export const getQuizData = (state = initialState, action) => {
         default:
             return state
     }
+}
+
+export const currentQuestionIndex = (state = 0, action) => {
+    const type = 'CURRENT_QUESTION_INDEX'
+
+    if (type === action.type) {
+        return action.currentQuestionIndex;
+    }
+
+    return state
+}
+
+export const answerIsCorrect = (state = null, action) => {
+    const type = 'ANSWER_IS_CORRECT';
+
+    if (type === action.type) {
+        return action.answerIsCorrect;
+    }
+
+    return state;
 }
