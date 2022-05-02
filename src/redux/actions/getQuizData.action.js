@@ -17,16 +17,17 @@ export const getQuizData = () => async (dispatch) => {
         const { data } = await baseUrl.get('api.php?amount=10&type=multiple')
 
 
-        let newData = data.results.map(items => {
+        let newData = data.results.map((items, index) => {
             return {
                 ...items,
-                answers: shuffle([...items.incorrect_answers, items.correct_answer])
+                answers: shuffle([...items.incorrect_answers, items.correct_answer]),
+                number: index+1
             }
         })
         dispatch({
             type: GET_QUIZ_DATA_SUCCESS,
             loading: false,
-            data: newData
+            questions: newData
         })
     } catch (error) {
         dispatch({
@@ -36,3 +37,13 @@ export const getQuizData = () => async (dispatch) => {
         })
     }
 }
+
+export const setCurrentQuestionIndex = currentQuestionIndex => ({
+    type: 'CURRENT_QUESTION_INDEX',
+    currentQuestionIndex
+})
+
+export const setAnswerIsCorrect = answerIsCorrect => ({
+    type: 'ANSWER_IS_CORRECT',
+    answerIsCorrect,
+})

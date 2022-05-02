@@ -15,7 +15,6 @@ const App = () => {
 
   console.log(component)
 
-
   const conditionalRendering = () => {
     switch (component) {
       case 'start':
