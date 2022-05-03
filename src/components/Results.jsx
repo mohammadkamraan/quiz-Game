@@ -1,6 +1,7 @@
 import React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
+import { setCurrentQuestionIndex } from "../redux/actions/getQuizData.action";
 import { rendering } from "../redux/actions/rendering.acion";
 
 const Results = () => {
@@ -19,7 +20,10 @@ const Results = () => {
         return `you couldn't answere all the questions ${name}`
     }
 
-    const restartGame = () => dispatch(rendering('start'))
+    const restartGame = () => {
+        dispatch(setCurrentQuestionIndex(0))
+        dispatch(rendering('start'))
+    }
 
     return (
         <div className="flex justify-center items-center h-screen font-quicksand">
