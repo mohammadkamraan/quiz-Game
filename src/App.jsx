@@ -13,8 +13,6 @@ const App = () => {
 
   const component = useSelector(state => state.rendering)
 
-  console.log(component)
-
   const conditionalRendering = () => {
     switch (component) {
       case 'start':
@@ -23,8 +21,6 @@ const App = () => {
         return <Quiz />
       case 'results':
         return <Results />
-      default:
-        console.log('there is no component')
     }
   }
 

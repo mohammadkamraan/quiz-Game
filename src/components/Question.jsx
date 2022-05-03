@@ -13,6 +13,7 @@ const Question = (question) => {
 
 
     const correctAnswer = question.currentQuestion.correct_answer;
+    const answers = question.currentQuestion.answers;
 
     const answerIsCorrect = (selectedAnswer) => selectedAnswer === correctAnswer;
 
@@ -23,8 +24,6 @@ const Question = (question) => {
             setClicked(false)
         }, 2000);
     }
-
-    console.log(correctAnswer);
 
     const calculateTimeFraction = () => {
         return time / initialTime
@@ -62,15 +61,24 @@ const Question = (question) => {
 
     }, [time])
 
+    const answersClass = (answer) => {
+        if (clicked && answerIsCorrect(answer))
+            return 'bg-teal-500'
+        else {
+            if (!clicked)
+                return 'bg-indigo-600'
+            else
+                return 'bg-red-500'
+        }
+
+    }
 
     const renderAnswers = () => {
-        const answers = question.currentQuestion.answers;
         return answers.map((answer, index) => {
             return (
                 <div key={index} className="flex justify-center">
                     <button className={` rounded-lg text-white h-10 w-2/3 my-3
-                    ${!clicked && 'hover:bg-amber-500'} ${clicked && answerIsCorrect(answer)
-                            ? 'bg-teal-500' : (!clicked ? 'bg-indigo-600' : 'bg-red-500')}`}
+                    ${!clicked && 'hover:bg-amber-500'} ${answersClass(answer)}`}
                         onClick={() => answerSelected(answer)}
                         disabled={clicked}>{answer}</button>
                 </div>

@@ -5,7 +5,7 @@ import {
 } from '../types/getQuizData.types';
 
 import { baseUrl } from '../../api/baseUrl';
-import { shuffle } from '../../shuffle';
+import { shuffle } from '../../components/helpers/shuffle';
 
 
 export const getQuizData = () => async (dispatch) => {
@@ -21,7 +21,7 @@ export const getQuizData = () => async (dispatch) => {
             return {
                 ...items,
                 answers: shuffle([...items.incorrect_answers, items.correct_answer]),
-                number: index+1
+                number: index + 1
             }
         })
         dispatch({

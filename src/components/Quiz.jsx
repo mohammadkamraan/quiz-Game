@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -34,24 +34,22 @@ const Quiz = () => {
     const gameIsOver = () => currentQuestionIndex === questions.length
 
     const conditionalRendering = () => {
-        if (hasError) {
+        if (hasError)
             return <SomeThingWentWrong />
-        } else {
-            if (loading) {
-                return <Loading />
-            } else {
-                return (
 
-                    gameIsOver() ?
-                        dispatch(rendering('results'))
-                        : <Question
-                            key={currentQuestionIndex}
-                            currentQuestion={questions[currentQuestionIndex]}
-                            number={questions.length}
-                        />
-                )
-            }
-        }
+        else if (loading)
+            return <Loading />
+
+        else if (gameIsOver())
+            dispatch(rendering('results'))
+
+        else
+            return <Question
+                key={currentQuestionIndex}
+                currentQuestion={questions[currentQuestionIndex]}
+                number={questions.length} />
+
+
     }
 
     useEffect(() => {
@@ -59,10 +57,9 @@ const Quiz = () => {
             return;
         }
         const score = answerIsCorrect ? 1 : 0;
-        dispatch(setAnswerIsCorrect(null));
         addScore(score);
         goToNextQuestion();
-
+        dispatch(setAnswerIsCorrect(null));
     }, [answerIsCorrect]);
 
     return (
