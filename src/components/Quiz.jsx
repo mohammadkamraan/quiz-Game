@@ -33,7 +33,9 @@ const Quiz = () => {
         dispatch(setScore(score + add));
     }
 
-    const gameIsOver = () => currentQuestionIndex === questions.length
+
+
+    const gameIsOver = () => currentQuestionIndex === questionsNumber
 
     const conditionalRendering = () => {
         if (hasError)
@@ -61,7 +63,9 @@ const Quiz = () => {
         addScore(score);
         goToNextQuestion();
         dispatch(setAnswerIsCorrect(null));
+        console.log('its runs wen shouldnt')
     }, [answerIsCorrect]);
+
 
     return (
         <div className="flex justify-center items-center h-screen">
@@ -71,7 +75,7 @@ const Quiz = () => {
                         score : {score}/{questionsNumber}
                     </h2>
                     <h2 className="mt-2">
-                        number : {questions[currentQuestionIndex].number}/{questionsNumber}
+                        number : {currentQuestionIndex + 1}/{questionsNumber}
                     </h2>
                 </span>
                 {conditionalRendering()}
