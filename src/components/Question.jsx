@@ -46,20 +46,6 @@ const Question = (question) => {
             return 'stroke-red-500'
     }
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setTime(time - 1);
-        }, 1000)
-
-        if (time === 0)
-            dispatch(setAnswerIsCorrect(false));
-
-        else if (clicked)
-            clearTimeout(timer)
-
-        return () => clearTimeout(timer);
-
-    }, [time])
 
     const answersClass = (answer) => {
         if (clicked && answerIsCorrect(answer))
@@ -86,11 +72,24 @@ const Question = (question) => {
         })
     }
 
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setTime(previousTime => --previousTime);
+        }, 1000)
+
+        if (time === 0)
+            dispatch(setAnswerIsCorrect(false));
+
+        else if (clicked)
+            clearTimeout(timer)
+
+        return () => clearTimeout(timer);
+
+    }, [time])
+
     return (
-        <div className="bg-white h-[90%] md:h-3/4 w-5/6 md:w-1/2 rounded-lg shadow-lg">
-            <h2 className="font-bold text-2xl text-center text-amber-500 mt-5">
-                {question.currentQuestion.number}/{question.number}
-            </h2>
+        <>
             <div className="flex justify-center mt-3">
                 <div className="relative h-16 w-16">
                     <svg className="transform -scale-x-100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -117,7 +116,7 @@ const Question = (question) => {
             {/* <h2 className="text-center text-xl mt-3"></h2> */}
             <h1 className="font-bold text-center mt-3 text-slate-800 text-xl">{question.currentQuestion.question}</h1>
             <>{renderAnswers()}</>
-        </div >
+        </>
     )
 }
 

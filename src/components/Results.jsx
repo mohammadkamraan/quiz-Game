@@ -3,6 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentQuestionIndex } from "../redux/actions/getQuizData.action";
 import { rendering } from "../redux/actions/rendering.acion";
+import { setScore } from "../redux/actions/score.action";
 
 const Results = () => {
 
@@ -22,6 +23,7 @@ const Results = () => {
 
     const restartGame = () => {
         dispatch(setCurrentQuestionIndex(0))
+        dispatch(setScore(0))
         dispatch(rendering('start'))
     }
 

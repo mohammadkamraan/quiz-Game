@@ -23,6 +23,8 @@ const Quiz = () => {
 
     const dispatch = useDispatch();
 
+    const questionsNumber = questions.length;
+
     const goToNextQuestion = () => {
         dispatch(setCurrentQuestionIndex(currentQuestionIndex + 1));
     }
@@ -46,8 +48,7 @@ const Quiz = () => {
         else
             return <Question
                 key={currentQuestionIndex}
-                currentQuestion={questions[currentQuestionIndex]}
-                number={questions.length} />
+                currentQuestion={questions[currentQuestionIndex]} />
 
 
     }
@@ -64,7 +65,17 @@ const Quiz = () => {
 
     return (
         <div className="flex justify-center items-center h-screen">
-            {conditionalRendering()}
+            <div className="bg-white h-[90%] md:h-3/4 w-5/6 md:w-1/2 rounded-lg shadow-lg">
+                <span className="font-bold text-2xl text-center text-amber-500">
+                    <h2 className="mt-2">
+                        score : {score}/{questionsNumber}
+                    </h2>
+                    <h2 className="mt-2">
+                        number : {questions[currentQuestionIndex].number}/{questionsNumber}
+                    </h2>
+                </span>
+                {conditionalRendering()}
+            </div>
         </div>
     )
 }
